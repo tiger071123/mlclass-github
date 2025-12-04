@@ -4,6 +4,7 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import plotly.express as px
+import plotly.io as pio
 
 dna = pd.read_csv("classification_and_seqs_aln.csv")
 
@@ -49,40 +50,20 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(nFeatures, input_shape=[nFeatures]),
-    tf.keras.layers.Dense(44, activation="relu"),
-    tf.keras.layers.BatchNormalization(),
-    tf.keras.layers.Dense(39, activation="relu"),
-    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Dense(100, activation="relu"),
+    tf.keras.layers.Dense(40, activation="relu"),
     tf.keras.layers.Dense(nSpecies, activation="relu"),
     tf.keras.layers.Softmax()
 ])
 
-lr = 0.005
+lr = 0.0001
 model.compile(
     loss = tf.keras.losses.SparseCategoricalCrossentropy(),
-    optimizer=tf.keras.optimizers.RMSprop(learning_rate=lr)
+    optimizer=tf.keras.optimizers.Adam(learning_rate=lr),
+    metrics=['accuracy']
 )
 
-history = model.fit(X_train, y_train, epochs=150)
+history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=100)
 loss = pd.DataFrame(history.history)['loss']
+pio.renderers.default = "browser"
 px.scatter(loss).show()
-
-predict = model.predict(X_test)
-y_predict = []
-for i in range(len(predict)): #getting the most possible species from the predict
-    mx = 0
-    ind = 0
-    for j in range(len(predict[i])):
-        mx = max(mx, predict[i][j])
-        if mx == predict[i][j]: ind = j
-    y_predict.append(ind)
-print(predict[1])
-print(y_predict[0:10])
-print(y_test[0:10])
-
-y_pred_labels = tf.argmax(y_predict)
-
-accuracy_metric = tf.keras.metrics.Accuracy()
-accuracy_metric.update_state(y_test, y_pred_labels)
-
-print(round(accuracy_metric.result().numpy()*100, 2))
