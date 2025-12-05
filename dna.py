@@ -3,12 +3,10 @@ import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-import plotly.express as px
-import plotly.io as pio
+#import plotly.express as px
+#import plotly.io as pio
 
-print("hi!")
-
-dna = pd.read_csv("classification_and_seqs_aln.csv")
+dna = pd.read_csv("gs://big-dna/all_classifcation_and_seqs_aln.csv")
 
 enc = LabelEncoder()
 
@@ -67,5 +65,5 @@ model.compile(
 
 history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=100)
 loss = pd.DataFrame(history.history)['loss']
-pio.renderers.default = "browser"
-px.scatter(loss).show()
+# pio.renderers.default = "browser"
+# px.scatter(loss).show()
