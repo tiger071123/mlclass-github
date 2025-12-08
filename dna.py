@@ -27,19 +27,13 @@ for i in range(len(dna)):
         elif row[j] == 'G':
             temp.append(4)
     dnal.append(temp)
-    
-print(dnal[0])
 
 processed = pd.DataFrame(dnal)
 
-print(processed.head())
-
 nFeatures = len(processed.columns) #number of features
-print(nFeatures)
 
 enc_species = enc.fit_transform(dna["species"]) #encode the species starting from 0
 nSpecies = enc_species.max()+1  #number of species can be obtained by max+1
-print(nSpecies)
 
 X = processed
 y = enc_species
