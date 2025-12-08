@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 #import plotly.express as px
 #import plotly.io as pio
 
-dna = pd.read_csv("gs://big-dna/all_classifcation_and_seqs_aln.csv")
+dna = pd.read_csv("all_classifcation_and_seqs_aln.csv")
 
 enc = LabelEncoder()
 
