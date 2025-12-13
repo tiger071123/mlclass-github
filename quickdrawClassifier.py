@@ -150,6 +150,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Define your model with the correct input shape and appropriate layers
 model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(len(X_train[0]), input_shape=[len(X_train[0])]),
+    tf.keras.layers.Dense(83, activation="relu"),
     tf.keras.layers.Dense(67, activation="relu"),
     tf.keras.layers.Dense(5, activation='relu'),
 ])
