@@ -74,41 +74,29 @@ def show_image(data):
 # Load your first cateogry of images
 data_bathtub = np.load("bathtub.npy")
 
-# %%
-# Now use the function above to show an image from your data
-show_image(data_bathtub)
 
 # %%
 # Now load your second category of images
 data_piano = np.load("piano.npy")
 
-# %%
-# visualize your second category of images
-show_image(data_piano)
+
 
 # %%
 # Now load your third category of images
 data_violin = np.load("violin.npy")
 
-# %%
-# visualize your third category of images
-show_image(data_violin)
+
 
 # %%
 # Now load your 4th category of images
 data_blueberry = np.load("blueberry.npy")
 
-# %%
-# visualize your 4th category of images
-show_image(data_blueberry)
 
 # %%
 # Now load your 5th category of images
 data_blackberry = np.load("blackberry.npy")
 
-# %%
-# visualize your 5th category of images
-show_image(data_blackberry)
+
 
 # %% [markdown]
 # ## Preprocess your data
@@ -162,7 +150,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Define your model with the correct input shape and appropriate layers
 model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(len(X_train[0]), input_shape=[len(X_train[0])]),
-    tf.keras.layers.Dense(15, activation="relu"),
+    tf.keras.layers.Dense(67, activation="relu"),
     tf.keras.layers.Dense(5, activation='relu'),
 ])
 
